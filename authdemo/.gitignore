@@ -1,0 +1,48 @@
+# Node.js (frontend)
+node_modules/
+auth-frontend/node_modules/
+
+# Java/Maven
+target/
+*.class
+
+# Build artifacts
+build/
+dist/
+uploads/
+
+# Environment files
+.env
+*.env
+
+# IDE/editor
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Maven wrapper files (already in your .gitignore, keep as is)
+!.mvn/wrapper/maven-wrapper.jar
+
+# NetBeans/IntelliJ/STS/other IDEs (already in your .gitignore, keep as is)
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Uploads and build artifacts
+uploads/
