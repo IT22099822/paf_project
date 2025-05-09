@@ -79,6 +79,7 @@ public class PostFeedbackController {
 
         PostFeedback feedback = opt.get();
 
+        // Prevent unauthorized users from modifying feedback
         if (!feedback.getUserEmail().equals(userEmail))
             return ResponseEntity.status(403).body("Forbidden");
 
