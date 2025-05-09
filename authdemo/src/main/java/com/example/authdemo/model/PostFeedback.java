@@ -12,10 +12,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class PostFeedback {
     @Id
     private String id;
-    private String postId;         // The SkillSharingPost this feedback belongs to
-    private String userEmail;      // Who left the feedback
+    private String postId; // The SkillSharingPost this feedback belongs to
+    private String userEmail; // Who left the feedback
     private String comment;
-    private Integer rating;        // 1-5
-    private String picturePath;    // Optional
-    private String pictureType;    // Optional
+    private Integer rating; // 1-5
+    private String picturePath; // Optional
+    private String pictureType; // Optional
 }
