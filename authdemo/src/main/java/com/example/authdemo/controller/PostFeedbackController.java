@@ -71,10 +71,14 @@ public class PostFeedbackController {
             @RequestParam(required = false) MultipartFile picture,
             @RequestHeader("Authorization") String authHeader) throws IOException {
         String userEmail = jwtUtil.extractEmail(authHeader.substring(7));
+
+        // Check if feedback exists
         Optional<PostFeedback> opt = feedbackService.findById(id);
         if (opt.isEmpty())
             return ResponseEntity.notFound().build();
+
         PostFeedback feedback = opt.get();
+
         if (!feedback.getUserEmail().equals(userEmail))
             return ResponseEntity.status(403).body("Forbidden");
 
