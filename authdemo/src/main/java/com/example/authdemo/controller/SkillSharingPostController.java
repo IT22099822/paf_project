@@ -118,3 +118,5 @@ public class SkillSharingPostController {
         return ResponseEntity.ok("Deleted");
     }
 }
+
+//added skill share controller
