@@ -71,10 +71,15 @@ public class PostFeedbackController {
             @RequestParam(required = false) MultipartFile picture,
             @RequestHeader("Authorization") String authHeader) throws IOException {
         String userEmail = jwtUtil.extractEmail(authHeader.substring(7));
+
+        // Check if feedback exists
         Optional<PostFeedback> opt = feedbackService.findById(id);
         if (opt.isEmpty())
             return ResponseEntity.notFound().build();
+
         PostFeedback feedback = opt.get();
+
+        // Prevent unauthorized users from modifying feedback
         if (!feedback.getUserEmail().equals(userEmail))
             return ResponseEntity.status(403).body("Forbidden");
 
@@ -87,6 +92,8 @@ public class PostFeedbackController {
             if (!dir.exists())
                 dir.mkdirs();
             String picturePath = uploadDir + "/" + picture.getOriginalFilename();
+
+            // Ensure upload directory exists
             picture.transferTo(new File(picturePath));
             feedback.setPicturePath(picturePath);
             feedback.setPictureType(picture.getContentType());
