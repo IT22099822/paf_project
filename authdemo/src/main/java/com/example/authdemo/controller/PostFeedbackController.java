@@ -30,8 +30,7 @@ public class PostFeedbackController {
             @RequestParam String comment,
             @RequestParam Integer rating,
             @RequestParam(required = false) MultipartFile picture,
-            @RequestHeader("Authorization") String authHeader
-    ) throws IOException {
+            @RequestHeader("Authorization") String authHeader) throws IOException {
         String userEmail = jwtUtil.extractEmail(authHeader.substring(7));
         // Check post exists
         if (postService.findById(postId).isEmpty())
@@ -46,7 +45,8 @@ public class PostFeedbackController {
         if (picture != null && !picture.isEmpty()) {
             String uploadDir = "C:/Users/Shevon/Downloads/authdemo/uploads";
             File dir = new File(uploadDir);
-            if (!dir.exists()) dir.mkdirs();
+            if (!dir.exists())
+                dir.mkdirs();
             String picturePath = uploadDir + "/" + picture.getOriginalFilename();
             picture.transferTo(new File(picturePath));
             builder.picturePath(picturePath);
@@ -69,11 +69,11 @@ public class PostFeedbackController {
             @RequestParam String comment,
             @RequestParam Integer rating,
             @RequestParam(required = false) MultipartFile picture,
-            @RequestHeader("Authorization") String authHeader
-    ) throws IOException {
+            @RequestHeader("Authorization") String authHeader) throws IOException {
         String userEmail = jwtUtil.extractEmail(authHeader.substring(7));
         Optional<PostFeedback> opt = feedbackService.findById(id);
-        if (opt.isEmpty()) return ResponseEntity.notFound().build();
+        if (opt.isEmpty())
+            return ResponseEntity.notFound().build();
         PostFeedback feedback = opt.get();
         if (!feedback.getUserEmail().equals(userEmail))
             return ResponseEntity.status(403).body("Forbidden");
@@ -84,7 +84,8 @@ public class PostFeedbackController {
         if (picture != null && !picture.isEmpty()) {
             String uploadDir = "C:/Users/Shevon/Downloads/authdemo/uploads";
             File dir = new File(uploadDir);
-            if (!dir.exists()) dir.mkdirs();
+            if (!dir.exists())
+                dir.mkdirs();
             String picturePath = uploadDir + "/" + picture.getOriginalFilename();
             picture.transferTo(new File(picturePath));
             feedback.setPicturePath(picturePath);
@@ -98,11 +99,11 @@ public class PostFeedbackController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteFeedback(
             @PathVariable String id,
-            @RequestHeader("Authorization") String authHeader
-    ) {
+            @RequestHeader("Authorization") String authHeader) {
         String userEmail = jwtUtil.extractEmail(authHeader.substring(7));
         Optional<PostFeedback> opt = feedbackService.findById(id);
-        if (opt.isEmpty()) return ResponseEntity.notFound().build();
+        if (opt.isEmpty())
+            return ResponseEntity.notFound().build();
         if (!opt.get().getUserEmail().equals(userEmail))
             return ResponseEntity.status(403).body("Forbidden");
         feedbackService.deleteById(id);
