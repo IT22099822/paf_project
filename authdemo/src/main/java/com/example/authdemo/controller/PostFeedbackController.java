@@ -92,6 +92,8 @@ public class PostFeedbackController {
             if (!dir.exists())
                 dir.mkdirs();
             String picturePath = uploadDir + "/" + picture.getOriginalFilename();
+
+            // Ensure upload directory exists
             picture.transferTo(new File(picturePath));
             feedback.setPicturePath(picturePath);
             feedback.setPictureType(picture.getContentType());
