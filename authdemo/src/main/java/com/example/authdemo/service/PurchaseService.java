@@ -1,4 +1,3 @@
-// src/main/java/com/example/authdemo/service/PurchaseService.java
 package com.example.authdemo.service;
 
 import com.example.authdemo.model.Course;
@@ -16,16 +15,31 @@ public class PurchaseService {
     private final CourseService courseService;
 
     public Purchase save(Purchase purchase) { return purchaseRepo.save(purchase); }
-    
+
     public List<Course> findCoursesByPurchaserEmail(String userEmail) {
         List<Purchase> purchases = purchaseRepo.findByUserEmailAndCompleted(userEmail, true);
         List<Course> courses = new ArrayList<>();
-        
         for (Purchase purchase : purchases) {
             courseService.findById(purchase.getCourseId())
                 .ifPresent(courses::add);
         }
-        
         return courses;
+    }
+
+    public List<Purchase> findAll() {
+        return purchaseRepo.findAll();
+    }
+
+    public Purchase findByPaymentIntentId(String paymentIntentId) {
+        return purchaseRepo.findByPaymentIntentId(paymentIntentId).orElse(null);
+    }
+
+    public Purchase findLatestPendingPurchase(String userEmail, String courseId) {
+        return purchaseRepo.findFirstByUserEmailAndCourseIdAndCompletedOrderByPurchaseDateDesc(userEmail, courseId, false).orElse(null);
+    }
+
+    // NEW: Find by sessionId and userEmail
+    public Purchase findBySessionIdAndUserEmail(String sessionId, String userEmail) {
+        return purchaseRepo.findBySessionIdAndUserEmail(sessionId, userEmail).orElse(null);
     }
 }

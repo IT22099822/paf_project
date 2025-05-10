@@ -1,4 +1,3 @@
-// src/main/java/com/example/authdemo/model/Purchase.java
 package com.example.authdemo.model;
 
 import lombok.*;
@@ -17,6 +16,7 @@ public class Purchase {
     private String courseId;
     private String userEmail;
     private String paymentIntentId; // Stripe payment ID
+    private String sessionId;       // Stripe session ID (NEW)
     private double amount;
     private Date purchaseDate;
     private boolean completed;
